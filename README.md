@@ -1,1 +1,1 @@
-This is private repo for stevens institute of technology.
+This is repo for SIT.
