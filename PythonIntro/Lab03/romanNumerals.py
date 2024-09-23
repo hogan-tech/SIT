@@ -1,7 +1,7 @@
 # Author: Hogan Lin
 # Date: Sept 23th 2024
 # Github: https://github.com/hogan-tech/SIT/tree/main/PythonIntro
-# Description: Use if-elif-else to handle the condition, and use intager to get the input
+# Description: Use if-elif-else to handle the condition to show the roman value, and use integer to get the input
 
 num = int(
     input("Please enter a number between 1 and 9 to convert to a roman numeral: "))
