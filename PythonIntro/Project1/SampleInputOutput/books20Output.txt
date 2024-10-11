@@ -1,0 +1,138 @@
+Welcome to the Book Mobile! We have many books to offer. Please choose from the following menu of options!
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 1
+Please enter the name of the book file: books20.csv
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 2
+Please enter the name of the book reviews file: books20rating.csv
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 3
+Currently, we have books in the following categories: 
+1: literary criticism
+2: medical
+3: computers
+4: biography & autobiography
+5: sports & recreation
+6: nature
+7: comics & graphic novels
+8: fiction
+9: political science
+10: business & economics
+11: science
+12: law
+13: juvenile fiction
+Which category of books would you like to see: fiction
+"The True Story of Manse Jolly Part II: As Told by the Hon. A.W. Fries" by Steve Biondo
+"Giants among Us" by Troy Denning
+"The Unseen Queen (Star Wars: Dark Nest Book 2)" by Troy Denning
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 4
+Currently, we have the following books: 
+1: Audi Quattro: The Complete Story
+2: How to Buy and Sell Used Cameras
+3: 101 Best Ways to Be Your Best
+4: Sorcerers' Apprentices: 100 Years of Law Clerks at the United States Supreme Court
+5: Beauty Queen
+6: A Bad Piece of Luck
+7: The Economics of Asymmetric Information
+8: The True Story of Manse Jolly Part II: As Told by the Hon. A.W. Fries
+9: Giants among Us
+10: The Unseen Queen (Star Wars: Dark Nest Book 2)
+11: The Audubon Reader (Everyman's Library)
+12: Two Lucky People: Memoirs
+13: 630 Questions & Answers About Chinese Herbal Medicine: A Workbook & Study Guide
+14: Developmental Instability: Causes and Consequences
+15: John Keats A Longman Cultural Edition
+16: Building Web Services and .NET Applications
+17: I Could Never Be So Lucky Again
+18: Computational Transport Phenomena: Numerical Methods for the Solution of Transport Problems
+19: Pathways to Democracy: The Political Economy of Democratic Transitions
+20: The Fur
+Which book would you like to see the details of: The Audubon Reader (Everyman's Library)
+"The Audubon Reader (Everyman's Library)" by John James Audubon
+An anthology of nature writings by the great artist and ornithologist features Audubon's writings about the American wilderness and its plant and animal life accompanied by excerpts from his journals letters and published works that include accounts of
+Published by Everyman's Library in 2006
+Category: Nature
+Price: $18.15
+Average Rating: 5.0/5
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 5
+The average rating for each author is: 
+Graham Robson: 5.00/5
+David Neil Arndt: 3.00/5
+Jay A. Block: 5.00/5
+Artemus Ward: 4.80/5
+David L Weiden: 4.80/5
+Libba Bray: 4.02/5
+Tom Abrams: 5.00/5
+B. Hillier: 4.50/5
+Steve Biondo: 4.00/5
+Troy Denning: 3.95/5
+John James Audubon: 5.00/5
+Milton Friedman: 4.17/5
+Rose D. Friedman: 4.17/5
+Bob Flaws: 4.50/5
+Professor of Philosophy Hans Rott: 5.00/5
+John Keats: 5.00/5
+Susan J. Wolfson: 5.00/5
+Lonnie Wall: 4.13/5
+Andrew Lader: 4.13/5
+James Doolittle: 4.46/5
+Carroll V. Glines: 4.46/5
+W. E. Schiesser: 5.00/5
+C. A. Silebi: 5.00/5
+James Frank Hollifield: 5.00/5
+Calvin C. Jillson: 5.00/5
+Margaret Wise Brown: 5.00/5
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 6
+The most helpful reviewer was Rob Anybody consular with an average rating of 100% helpful!
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 7
+Thank you for visiting the Book Mobile!
