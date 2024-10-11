@@ -1,0 +1,130 @@
+Welcome to the Book Mobile! We have many books to offer. Please choose from the following menu of options!
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 1
+Please enter the name of the book file: books.csv
+books.csv does not exist. Please enter the name of the book file: books10.csv
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 2
+Please enter the name of the book reviews file: books10ratingerror.csv
+Audi Quattro: The Complete Story is not a known book!
+Please try another list of reviews.
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 2
+Please enter the name of the book reviews file: booksrating10.csv
+booksrating10.csv does not exist. Please enter the name of the book reviews file: books10rating.csv
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 3
+Currently, we have books in the following categories: 
+1: biography & autobiography
+2: fiction
+3: juvenile nonfiction
+4: computers
+5: crafts & hobbies
+Which category of books would you like to see: fition
+fition is not a valid category. Which category of books would you like to see: fiction
+"The Cosmological Eye" by Henry Miller
+"The Wild Baron (Baron Series)" by Catherine Coulter
+"The Obelisk Trilogy: Tropic Of Cancer Tropic Of Capricorn Black Spring" by Henry Miller
+"Dead Aim (Chris Klick Mysteries)" by Wendell McCall
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 4
+Currently, we have the following books: 
+1: Natural Wonders of the World: Converting Measurements to Metric Units (Powermath)
+2: Thinking Recursively
+3: Woodturning A Fresh Approach
+4: The Cosmological Eye
+5: First Cut: A Season in the Human Anatomy Lab
+6: The Wild Baron (Baron Series)
+7: Cameroon (Enchantment of the World Second)
+8: The Obelisk Trilogy: Tropic Of Cancer Tropic Of Capricorn Black Spring
+9: Dead Aim (Chris Klick Mysteries)
+10: Fresh Talk/Daring Gazes: Conversations on Asian American Art
+Which book would you like to see the details of: The Wild Baron
+The Wild Baron is not a valid book. Which book would you like to see the details of: The Wild Baron (Baron Series)
+"The Wild Baron (Baron Series)" by Catherine Coulter
+Catherine Coulter introduces the dashing Carrington brothers with the story of Rohan a man with a rakish reputation but a heart of pure gold...
+Published by Penguin in 1997
+Category: Fiction
+Price: $7.99
+Average Rating: 3.8/5
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 5
+The average rating for each author is: 
+Kerri ODonnell: 5.00/5
+Eric Roberts: 5.00/5
+Robert Chapman: 5.00/5
+Henry Miller: 4.67/5
+Albert Howard Carter III: 4.33/5
+Catherine Coulter: 3.80/5
+Patricia K. Kummer: No Ratings
+Wendell McCall: 5.00/5
+Elaine H. Kim: 4.00/5
+Margo Machida: 4.00/5
+Sharon Mizota: 4.00/5
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 6
+The most helpful reviewer was Michael Benitah with an average rating of 100% helpful!
+
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 9
+9 is not a valid option! Try again.
+1. Load Book File
+2. Load Review File
+3. Books by Category
+4. Book Details
+5. Author Average Ratings
+6. Most Helpful Reviewer
+7. Quit
+Please enter a choice (1-7): 7
+Thank you for visiting the Book Mobile!
