@@ -1,7 +1,7 @@
 # Author: Hogan Lin
 # Date: Oct 12th 2024
 # Github: https://github.com/hogan-tech/SIT/tree/main/PythonIntro
-# Description: 
+# Description:
 
 import os
 from typing import Dict, List, Set, Tuple
@@ -37,6 +37,40 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
 
     return booksDict, categoriesSet
 
+
+def loadReviews(booksDict: Dict[str, List[str]]) -> List[List]:
+    """
+    Load a file containing a list of book reviews.
+
+    Parameters:
+    - booksDict: Dictionary of book information
+
+    Returns:
+    - List containing each of the book reviews from the file
+    """
+    reviewsList: List[List] = []
+
+    while True:
+        fileName = input(
+            "Please enter the name of the book review data csv file: ")
+        if os.path.exists(fileName):
+            break
+        else:
+            print("File does not exist.")
+
+    with open(fileName, "r") as file:
+        next(file)  # Skip the header line
+        for line in file:
+            line = line.strip()
+            id, title, price, userId, profileName, helpfulness, score = line.split(
+                ",")
+            if title not in booksDict:
+                raise LookupError(
+                    f"Book '{title}' not found in the book dictionary.")
+            reviewsList.append(
+                [id, title, price, userId, profileName, helpfulness, score])
+
+    return reviewsList
 
 
 def welcome() -> None:
