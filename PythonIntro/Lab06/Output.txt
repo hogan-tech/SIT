@@ -1,0 +1,7 @@
+The name of the poem is Snowball
+The author of the poem is Shel Silverstein
+The number of lines in the poem is 8
+A preview of the poem is:
+I made myself a snowball
+As perfect as could be.
+I thought I’d keep it as a pet
