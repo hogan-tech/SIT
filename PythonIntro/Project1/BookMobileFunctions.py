@@ -72,13 +72,13 @@ def loadReviews(booksDict: Dict[str, List[str]]) -> List[List]:
         next(file)  # Skip the header line
         for line in file:
             line = line.strip()
-            id, title, price, userId, profileName, helpfulness, score = line.split(
+            id, title, price, userId, profileName, reviewHelpfulness, score = line.split(
                 ",")
             if title not in booksDict:
                 raise LookupError(
                     f"Book '{title}' not found in the book dictionary.")
             reviewsList.append(
-                [id, title, price, userId, profileName, helpfulness, score])
+                [id, title, price, userId, profileName, reviewHelpfulness, score])
 
     return reviewsList
 
@@ -161,13 +161,48 @@ def showAuthorRatings(booksDict: Dict[str, List[str]], reviewsList: List[List]) 
     authorRatings: defaultdict[str, List[float]] = defaultdict(list)
 
     for review in reviewsList:
-        # id, title, price, userId, profileName, helpfulness, score = review
+        # id, title, price, userId, profileName, reviewHelpfulness, score = review
         _, title, _, _, _, _, score = review
         author = booksDict[title]['author']
         authorRatings[author].append(float(score))
     for author, ratings in authorRatings.items():
         avgRating = sum(ratings) / len(ratings)
         print(f"Author: {author}, Average Rating: {avgRating:.1f}")
+
+
+def showHelpfulReviewer(reviewsList: List[List]) -> None:
+    """
+    Show the name and average reviewHelpfulness rating of the most helpful reviewer.
+
+    Parameters:
+    - reviewsList: List of book reviews
+    """
+    reviewerHelpfulness = defaultdict(lambda: [0, 0])
+
+    for review in reviewsList:
+        _, _, _, _, profileName, reviewHelpfulness, _ = review
+        reviewPoint, helpfulnessPoint = map(int, reviewHelpfulness.split("/"))
+
+        if reviewPoint > 0:
+            reviewerHelpfulness[profileName][0] += helpfulnessPoint
+            reviewerHelpfulness[profileName][1] += reviewPoint
+
+    mostHelpfulReviewer = ""
+    highestAvgHelpfulness = 0
+
+    for profileName, (helpfulPoints, totalPoints) in reviewerHelpfulness.items():
+        # Only consider reviewers with at least 10 reviews
+        if totalPoints >= 10:
+            avgHelpfulness = (helpfulPoints / totalPoints) * 100
+            if avgHelpfulness > highestAvgHelpfulness:
+                highestAvgHelpfulness = avgHelpfulness
+                mostHelpfulReviewer = profileName
+
+    if mostHelpfulReviewer:
+        print(
+            f"Most Helpful Reviewer: {mostHelpfulReviewer}, Average Helpfulness: {int(highestAvgHelpfulness)}%")
+    else:
+        print("No reviewer with sufficient reviews.")
 
 
 def welcome() -> None:
@@ -186,13 +221,13 @@ def menu() -> int:
     - int: The number of the option the user chose
     """
     print("\nMenu:")
-    print("1. Loading the book file")
-    print("2. Loading the book review file")
-    print("3. Outputting books by literary category")
-    print("4. Outputting a book’s details")
-    print("5. Outputting the average author ratings")
-    print("6. Outputting the most helpful reviewer")
-    print("7. Quitting")
+    print("1. Load the book file")
+    print("2. Load the book review file")
+    print("3. Output books by literary category")
+    print("4. Output a book’s details")
+    print("5. Output the average author ratings")
+    print("6. Output the most helpful reviewer")
+    print("7. Quit")
     choice = input("Please choose an option (1-7): ")
 
     return int(choice)
