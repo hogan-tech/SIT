@@ -37,6 +37,11 @@ def main():
                 print("You need to load the reviews file and book file first!")
             else:
                 showBookDetails(booksDict, reviewsList)
+        elif choice == 5:
+            if not reviewsLoaded:
+                print("You need to load the reviews file first!")
+            else:
+                showAuthorRatings(booksDict, reviewsList)
 
         elif choice == 7:
             goodBye()

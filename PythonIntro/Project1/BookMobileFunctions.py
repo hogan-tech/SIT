@@ -3,6 +3,7 @@
 # Github: https://github.com/hogan-tech/SIT/tree/main/PythonIntro
 # Description:
 
+from collections import defaultdict
 import os
 from typing import Dict, List, Set, Tuple
 
@@ -145,6 +146,26 @@ def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) ->
         print(f"Average Price: ${avgPrice:.2f}")
     else:
         print("No reviews available for this book.")
+
+
+def showAuthorRatings(booksDict: Dict[str, List[str]], reviewsList: List[List]) -> None:
+    """
+    Show average ratings for each author.
+
+    Parameters:
+    - booksDict: Dictionary of book information
+    - reviewsList: List of book reviews
+    """
+    authorRatings: defaultdict[str, List[float]] = defaultdict(list)
+
+    for review in reviewsList:
+        # id, title, price, userId, profileName, helpfulness, score = review
+        _, title, _, _, _, _, score = review
+        author = booksDict[title]['author']
+        authorRatings[author].append(float(score))
+    for author, ratings in authorRatings.items():
+        avgRating = sum(ratings) / len(ratings)
+        print(f"Author: {author}, Average Rating: {avgRating:.1f}")
 
 
 def welcome() -> None:
