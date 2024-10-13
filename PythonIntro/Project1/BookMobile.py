@@ -42,7 +42,11 @@ def main():
                 print("You need to load the reviews file first!")
             else:
                 showAuthorRatings(booksDict, reviewsList)
-
+        elif choice == 6:
+            if not reviewsLoaded:
+                print("You need to load the reviews file first!")
+            else:
+                showHelpfulReviewer(reviewsList)
         elif choice == 7:
             goodBye()
             break
@@ -58,5 +62,6 @@ if __name__ == "__main__":
 Input
 1
 books10.csv
+2
 books10rating.csv
 """
