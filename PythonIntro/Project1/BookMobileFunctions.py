@@ -16,7 +16,7 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
     - Dictionary of Lists containing each of the books from the file
     - Set containing all of the literary categories of the books
     """
-    booksDict: Dict[str, List[Dict]] = {}
+    booksDict: Dict[str, Dict] = {}
     categoriesSet: Set[str] = set()
 
     while True:
@@ -39,12 +39,9 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
                 "authors": authors,
                 "publisher": publisher,
                 "publishedDate": publishedDate,
-                "category": category.lower()
+                "category": category
             }
-            if category not in booksDict:
-                booksDict[category] = [bookDetail]
-            else:
-                booksDict[category].append(bookDetail)
+            booksDict[title] = bookDetail
             categoriesSet.add(category)
 
     print("\nbooksDict: ", booksDict)
@@ -108,9 +105,11 @@ def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]
             print("Invalid category.")
 
     print(f"Books in the '{category}' category:")
-    for i, booksItem in enumerate(booksDict[category]):
-        print(
-            f"{i}\nTitle: {booksItem['title']} \nAuthor: {booksItem['authors']}")
+
+    for i, (booksKey, booksValue) in enumerate(booksDict.items(), start=1):
+        if booksValue['category'] == category:
+            print(
+                f"\nTitle: {booksValue['title']} \nAuthor: {booksValue['authors']}")
 
 
 def welcome() -> None:

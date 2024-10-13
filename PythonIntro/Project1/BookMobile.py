@@ -2,7 +2,7 @@ from BookMobileFunctions import *
 
 
 def main():
-    booksDict: Dict[str, List[str]] = {}
+    booksDict: Dict[str, Dict] = {}
     categoriesSet: Set[str] = set()
     booksLoaded = False
     welcome()
