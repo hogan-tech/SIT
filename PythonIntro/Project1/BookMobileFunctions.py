@@ -31,21 +31,18 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
         next(file)  # Skip the header line
         for line in file:
             line = line.strip()
-            title, description, authors, publisher, publishedDate, category = line.split(
+            title, description, author, publisher, publishedDate, category = line.split(
                 ",")
             bookDetail = {
                 "title": title,
                 "description": description,
-                "authors": authors,
+                "author": author,
                 "publisher": publisher,
                 "publishedDate": publishedDate,
                 "category": category
             }
             booksDict[title] = bookDetail
             categoriesSet.add(category)
-
-    print("\nbooksDict: ", booksDict)
-    print("\ncategoriesSet: ", categoriesSet)
 
     return booksDict, categoriesSet
 
@@ -98,7 +95,7 @@ def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]
         print(f"{i}. {category}")
 
     while True:
-        category = input("Please enter a category: ")
+        category = input("Please enter a category: ").strip()
         if category in categoriesSet:
             break
         else:
@@ -109,7 +106,45 @@ def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]
     for i, (booksKey, booksValue) in enumerate(booksDict.items(), start=1):
         if booksValue['category'] == category:
             print(
-                f"\nTitle: {booksValue['title']} \nAuthor: {booksValue['authors']}")
+                f"\nTitle: {booksValue['title']} \nAuthor: {booksValue['author']}")
+
+
+def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) -> None:
+    """
+    Show detailed information about a book.
+
+    Parameters:
+    - booksDict: Dictionary of book information
+    - reviewsList: List of book reviews
+    """
+    print("Available books:")
+    for i, title in enumerate(booksDict.keys(), start=1):
+        print(f"{i}. {title}")
+
+    while True:
+        bookTitle = input("Please enter the title of the book: ").strip()
+        if bookTitle in booksDict:
+            booksValue = booksDict[bookTitle]
+            print(
+                f"\nTitle: {bookTitle}\nAuthor: {booksValue['author']}\nCategory: {booksValue['category']}\n\nDescription: {booksValue['description']}")
+            print(
+                f"\nPublisher: {booksValue['publisher']}\nYear: {booksValue['publishedDate']}")
+            break
+        else:
+            print("Invalid book title. Please try again.")
+
+    # Calculate average rating and price for the book
+    reviewsForBook = [
+        review for review in reviewsList if review[1] == bookTitle]
+    if reviewsForBook:
+        avgRating = sum(float(review[6])
+                        for review in reviewsForBook) / len(reviewsForBook)
+        avgPrice = sum(float(review[2])
+                       for review in reviewsForBook) / len(reviewsForBook)
+        print(f"Average Rating: {avgRating:.1f}")
+        print(f"Average Price: ${avgPrice:.2f}")
+    else:
+        print("No reviews available for this book.")
 
 
 def welcome() -> None:
