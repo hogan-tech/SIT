@@ -156,6 +156,8 @@ def showAuthorRatings(booksDict: Dict[str, List[str]], reviewsList: List[List]) 
     - booksDict: Dictionary of book information
     - reviewsList: List of book reviews
     """
+
+    # I use defaultdict, which is also very useful dast scructure in python
     authorRatings: defaultdict[str, List[float]] = defaultdict(list)
 
     for review in reviewsList:
