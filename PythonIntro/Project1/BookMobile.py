@@ -12,7 +12,6 @@ def main():
         if choice == 1:
             booksDict, categoriesSet = loadBooks()
             print("Books loaded successfully!")
-            print(booksDict, categoriesSet)
             booksLoaded = True
 
         elif choice == 2:
@@ -26,7 +25,13 @@ def main():
                 # I use LookupError to get error message
                 except LookupError as e:
                     print(e)
-                
+
+        elif choice == 3:
+            if not booksLoaded:
+                print("You need to load the book file first!")
+            else:
+                listBooksByCategory(booksDict, categoriesSet)
+
         elif choice == 7:
             goodBye()
             break
@@ -36,7 +41,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 """

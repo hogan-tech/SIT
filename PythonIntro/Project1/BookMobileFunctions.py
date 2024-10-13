@@ -16,7 +16,7 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
     - Dictionary of Lists containing each of the books from the file
     - Set containing all of the literary categories of the books
     """
-    booksDict: Dict[str, List[str]] = {}
+    booksDict: Dict[str, List[Dict]] = {}
     categoriesSet: Set[str] = set()
 
     while True:
@@ -28,12 +28,27 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
             print("File does not exist.")
 
     with open(fileName, "r") as file:
+        next(file)  # Skip the header line
         for line in file:
             line = line.strip()
-            title, author, category, description, publisher, year = line.split(
+            title, description, authors, publisher, publishedDate, category = line.split(
                 ",")
-            booksDict[title] = [author, category, description, publisher, year]
-            categoriesSet.add(category.lower())
+            bookDetail = {
+                "title": title,
+                "description": description,
+                "authors": authors,
+                "publisher": publisher,
+                "publishedDate": publishedDate,
+                "category": category.lower()
+            }
+            if category not in booksDict:
+                booksDict[category] = [bookDetail]
+            else:
+                booksDict[category].append(bookDetail)
+            categoriesSet.add(category)
+
+    print("\nbooksDict: ", booksDict)
+    print("\ncategoriesSet: ", categoriesSet)
 
     return booksDict, categoriesSet
 
@@ -71,6 +86,31 @@ def loadReviews(booksDict: Dict[str, List[str]]) -> List[List]:
                 [id, title, price, userId, profileName, helpfulness, score])
 
     return reviewsList
+
+
+def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]) -> None:
+    """
+    List all books within a literary category.
+
+    Parameters:
+    - booksDict: Dictionary of book information
+    - categoriesSet: Set of literary categories
+    """
+    print("\nAvailable categories:")
+    for i, category in enumerate(categoriesSet, start=1):
+        print(f"{i}. {category}")
+
+    while True:
+        category = input("Please enter a category: ")
+        if category in categoriesSet:
+            break
+        else:
+            print("Invalid category.")
+
+    print(f"Books in the '{category}' category:")
+    for i, booksItem in enumerate(booksDict[category]):
+        print(
+            f"{i}\nTitle: {booksItem['title']} \nAuthor: {booksItem['authors']}")
 
 
 def welcome() -> None:
