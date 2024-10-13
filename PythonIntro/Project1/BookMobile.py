@@ -5,6 +5,7 @@ def main():
     booksDict: Dict[str, Dict] = {}
     categoriesSet: Set[str] = set()
     booksLoaded = False
+    reviewsLoaded = False
     welcome()
 
     while True:
@@ -22,15 +23,20 @@ def main():
                     reviewsList = loadReviews(booksDict)
                     print(reviewsList)
                     print("Reviews loaded successfully!")
+                    reviewsLoaded = True
                 # I use LookupError to get error message
                 except LookupError as e:
                     print(e)
-
         elif choice == 3:
             if not booksLoaded:
                 print("You need to load the book file first!")
             else:
                 listBooksByCategory(booksDict, categoriesSet)
+        elif choice == 4:
+            if not reviewsLoaded and not booksLoaded:
+                print("You need to load the reviews file and book file first!")
+            else:
+                showBookDetails(booksDict, reviewsList)
 
         elif choice == 7:
             goodBye()
