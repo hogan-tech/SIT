@@ -21,7 +21,6 @@ def main():
             else:
                 try:
                     reviewsList = loadReviews(booksDict)
-                    print(reviewsList)
                     print("Reviews loaded successfully!")
                     reviewsLoaded = True
                 # I use LookupError to get error message

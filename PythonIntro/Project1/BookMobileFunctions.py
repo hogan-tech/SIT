@@ -102,12 +102,12 @@ def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]
         else:
             print("Invalid category.")
 
-    print(f"Books in the '{category}' category:")
+    print(f"\nBooks in the '{category}' category:")
 
     for i, (booksKey, booksValue) in enumerate(booksDict.items(), start=1):
         if booksValue['category'] == category:
             print(
-                f"\nTitle: {booksValue['title']} \nAuthor: {booksValue['author']}")
+                f"Title: {booksValue['title']} \nAuthor: {booksValue['author']}")
 
 
 def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) -> None:
@@ -118,7 +118,7 @@ def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) ->
     - booksDict: Dictionary of book information
     - reviewsList: List of book reviews
     """
-    print("Available books:")
+    print("\nAvailable books:")
     for i, title in enumerate(booksDict.keys(), start=1):
         print(f"{i}. {title}")
 
@@ -127,9 +127,9 @@ def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) ->
         if bookTitle in booksDict:
             booksValue = booksDict[bookTitle]
             print(
-                f"\nTitle: {bookTitle}\nAuthor: {booksValue['author']}\nCategory: {booksValue['category']}\n\nDescription: {booksValue['description']}")
+                f"\nTitle: {bookTitle}\nAuthor: {booksValue['author']}\nCategory: {booksValue['category']}\nDescription: {booksValue['description']}")
             print(
-                f"\nPublisher: {booksValue['publisher']}\nYear: {booksValue['publishedDate']}")
+                f"Publisher: {booksValue['publisher']}\nYear: {booksValue['publishedDate']}")
             break
         else:
             print("Invalid book title. Please try again.")
@@ -165,6 +165,7 @@ def showAuthorRatings(booksDict: Dict[str, List[str]], reviewsList: List[List]) 
         _, title, _, _, _, _, score = review
         author = booksDict[title]['author']
         authorRatings[author].append(float(score))
+    print("\n")
     for author, ratings in authorRatings.items():
         avgRating = sum(ratings) / len(ratings)
         print(f"Author: {author}, Average Rating: {avgRating:.1f}")
@@ -177,30 +178,33 @@ def showHelpfulReviewer(reviewsList: List[List]) -> None:
     Parameters:
     - reviewsList: List of book reviews
     """
-    reviewerHelpfulness = defaultdict(lambda: [0, 0])
+    reviewerData = defaultdict(lambda: [0, 0])
+    # {reviewerName: [totalHelpful, totalReviewed]}
 
     for review in reviewsList:
         _, _, _, _, profileName, reviewHelpfulness, _ = review
-        reviewPoint, helpfulnessPoint = map(int, reviewHelpfulness.split("/"))
+        numerator, denominator = map(int, reviewHelpfulness.split("/"))
 
-        if reviewPoint > 0:
-            reviewerHelpfulness[profileName][0] += helpfulnessPoint
-            reviewerHelpfulness[profileName][1] += reviewPoint
+        if denominator > 0:
+            reviewerData[profileName][0] += numerator
+            reviewerData[profileName][1] += denominator
 
     mostHelpfulReviewer = ""
     highestAvgHelpfulness = 0
-
-    for profileName, (helpfulPoints, totalPoints) in reviewerHelpfulness.items():
-        # Only consider reviewers with at least 10 reviews
-        if totalPoints >= 10:
-            avgHelpfulness = (helpfulPoints / totalPoints) * 100
+    mostHelpfulReviewerTotalHelpful = 0
+    mostHelpfulReviewerTotalReviewed = 0
+    for profileName, (totalHelpful, totalReviewed) in reviewerData.items():
+        if totalReviewed >= 10:
+            avgHelpfulness = totalHelpful / totalReviewed
             if avgHelpfulness > highestAvgHelpfulness:
                 highestAvgHelpfulness = avgHelpfulness
                 mostHelpfulReviewer = profileName
+                mostHelpfulReviewerTotalHelpful = totalHelpful
+                mostHelpfulReviewerTotalReviewed = totalReviewed
 
     if mostHelpfulReviewer:
         print(
-            f"Most Helpful Reviewer: {mostHelpfulReviewer}, Average Helpfulness: {int(highestAvgHelpfulness)}%")
+            f"\nMost Helpful Reviewer: {mostHelpfulReviewer}, Average Helpfulness: {int(highestAvgHelpfulness * 100)}%, Review/Helpfulness: {mostHelpfulReviewerTotalHelpful}/{mostHelpfulReviewerTotalReviewed}")
     else:
         print("No reviewer with sufficient reviews.")
 
