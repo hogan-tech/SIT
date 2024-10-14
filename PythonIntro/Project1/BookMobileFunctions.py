@@ -1,7 +1,8 @@
 # Author: Hogan Lin
-# Date: Oct 12th 2024
+# Date: Oct 14th 2024
 # Github: https://github.com/hogan-tech/SIT/tree/main/PythonIntro
-# Description:
+# Description: Use Dictionary, List, Set to store the data.
+#              And use several function to complete this menu-driven application 
 
 from collections import defaultdict
 import os
