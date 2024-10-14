@@ -160,8 +160,11 @@ def showHelpfulReviewer(reviewsDf: pd.DataFrame) -> None:
         calculateHelpfulness)
     reviewsDf['reviewCount'] = reviewsDf['review/helpfulness'].apply(
         calculateHelpfulnessCount)
+    # copy reviewsDf avoid to pollute original data 
     reviewerStats = reviewsDf
+    # remove the row if the review count less than 10
     reviewerStats = reviewerStats[reviewerStats['reviewCount'] >= 10]
+    # get the highest row of the review/helpfulness point
     reviewerStats = reviewerStats.loc[reviewerStats['helpfulness'].idxmax()]
     if not reviewerStats.empty:
         mostHelpfulReviewer = reviewerStats['profileName']
