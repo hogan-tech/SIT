@@ -50,17 +50,8 @@ def main():
             goodBye()
             break
         else:
-            print("Invalid option. Please input from 1 ~ 7.")
+            print(f"{choice} is not a valid option! Try again.")
 
 
 if __name__ == "__main__":
     main()
-
-
-"""
-Input
-1
-books10.csv
-2
-books10rating.csv
-"""
