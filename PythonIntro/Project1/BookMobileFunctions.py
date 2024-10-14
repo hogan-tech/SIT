@@ -22,11 +22,11 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
 
     while True:
         fileName = input(
-            "Please enter the name of the book data csv file: ")
+            "Please enter the name of the book file: ")
         if os.path.exists(fileName):
             break
         else:
-            print("File does not exist.")
+            print(f"{fileName} does not exist.", end="")
 
     with open(fileName, "r") as file:
         next(file)  # Skip the header line
@@ -40,10 +40,10 @@ def loadBooks() -> Tuple[Dict[str, List[str]], Set[str]]:
                 "author": author,
                 "publisher": publisher,
                 "publishedDate": publishedDate,
-                "category": category
+                "category": category.lower()
             }
             booksDict[title] = bookDetail
-            categoriesSet.add(category)
+            categoriesSet.add(category.lower())
 
     return booksDict, categoriesSet
 
@@ -62,11 +62,11 @@ def loadReviews(booksDict: Dict[str, List[str]]) -> List[List]:
 
     while True:
         fileName = input(
-            "Please enter the name of the book review data csv file: ")
+            "Please enter the name of the book reviews file: ")
         if os.path.exists(fileName):
             break
         else:
-            print("File does not exist.")
+            print(f"{fileName} does not exist.", end="")
 
     with open(fileName, "r") as file:
         next(file)  # Skip the header line
@@ -91,23 +91,22 @@ def listBooksByCategory(booksDict: Dict[str, List[str]], categoriesSet: Set[str]
     - booksDict: Dictionary of book information
     - categoriesSet: Set of literary categories
     """
-    print("\nAvailable categories:")
+    print("Available categories:")
     for i, category in enumerate(categoriesSet, start=1):
-        print(f"{i}. {category}")
+        print(f"{i}: {category}")
 
     while True:
-        category = input("Please enter a category: ").strip()
+        category = input(
+            "Which category of books would you like to see: ").strip().lower()
         if category in categoriesSet:
             break
         else:
-            print("Invalid category.")
-
-    print(f"\nBooks in the '{category}' category:")
-
-    for i, (booksKey, booksValue) in enumerate(booksDict.items(), start=1):
-        if booksValue['category'] == category:
             print(
-                f"Title: {booksValue['title']} \nAuthor: {booksValue['author']}")
+                f"{category} is not a valid category.", end="")
+    for i, (_, booksValue) in enumerate(booksDict.items(), start=1):
+        if booksValue['category'] == category:
+            print(f"\"{booksValue['title']}\" by {booksValue['author']}")
+    print()
 
 
 def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) -> None:
@@ -120,19 +119,21 @@ def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) ->
     """
     print("\nAvailable books:")
     for i, title in enumerate(booksDict.keys(), start=1):
-        print(f"{i}. {title}")
+        print(f"{i}: {title}")
 
     while True:
-        bookTitle = input("Please enter the title of the book: ").strip()
+        bookTitle = input(
+            "Which book would you like to see the details of: ").strip()
         if bookTitle in booksDict:
             booksValue = booksDict[bookTitle]
+            print(f"\"{bookTitle}\" by {booksValue['author']}")
+            print(booksValue['description'])
             print(
-                f"\nTitle: {bookTitle}\nAuthor: {booksValue['author']}\nCategory: {booksValue['category']}\nDescription: {booksValue['description']}")
-            print(
-                f"Publisher: {booksValue['publisher']}\nYear: {booksValue['publishedDate']}")
+                f"Published by {booksValue['publisher']} in {booksValue['publishedDate']}")
+            print(f"Category: {booksValue['category']}")
             break
         else:
-            print("Invalid book title. Please try again.")
+            print(f"{bookTitle} is not a valid book.", end="")
 
     # Calculate average rating and price for the book
     reviewsForBook = [
@@ -142,8 +143,8 @@ def showBookDetails(booksDict: Dict[str, List[str]], reviewsList: List[List]) ->
                         for review in reviewsForBook) / len(reviewsForBook)
         avgPrice = sum(float(review[2])
                        for review in reviewsForBook) / len(reviewsForBook)
-        print(f"Average Rating: {avgRating:.1f}")
-        print(f"Average Price: ${avgPrice:.2f}")
+        print(f"Price: ${avgPrice:.2f}")
+        print(f"Average Rating: {avgRating:.1f}/5\n")
     else:
         print("No reviews available for this book.")
 
@@ -159,16 +160,37 @@ def showAuthorRatings(booksDict: Dict[str, List[str]], reviewsList: List[List]) 
 
     # I use defaultdict, which is also very useful dast scructure in python
     authorRatings: defaultdict[str, List[float]] = defaultdict(list)
+    titleSet = set()
+
+    for title in booksDict.keys():
+        titleSet.add(title)
 
     for review in reviewsList:
         # id, title, price, userId, profileName, reviewHelpfulness, score = review
         _, title, _, _, _, _, score = review
         author = booksDict[title]['author']
-        authorRatings[author].append(float(score))
-    print("\n")
+        if title in titleSet:
+            titleSet.remove(title)
+        if ";" in author:
+            for newAuthor in author.split(";"):
+                authorRatings[newAuthor].append(float(score))
+        else:
+            authorRatings[author].append(float(score))
+    for remainTitle in titleSet:
+        author = booksDict[remainTitle]['author']
+        if ";" in author:
+            for newAuthor in author.split(";"):
+                authorRatings[newAuthor].append(float(0))
+        elif author not in authorRatings:
+            authorRatings[author].append(float(0))
+
     for author, ratings in authorRatings.items():
         avgRating = sum(ratings) / len(ratings)
-        print(f"Author: {author}, Average Rating: {avgRating:.1f}")
+        if avgRating:
+            print(f"{author}: {avgRating:.2f}/5")
+        else:
+            print(f"{author}: No Ratings")
+    print()
 
 
 def showHelpfulReviewer(reviewsList: List[List]) -> None:
@@ -191,30 +213,26 @@ def showHelpfulReviewer(reviewsList: List[List]) -> None:
 
     mostHelpfulReviewer = ""
     highestAvgHelpfulness = 0
-    mostHelpfulReviewerTotalHelpful = 0
-    mostHelpfulReviewerTotalReviewed = 0
     for profileName, (totalHelpful, totalReviewed) in reviewerData.items():
         if totalReviewed >= 10:
             avgHelpfulness = totalHelpful / totalReviewed
             if avgHelpfulness > highestAvgHelpfulness:
                 highestAvgHelpfulness = avgHelpfulness
                 mostHelpfulReviewer = profileName
-                mostHelpfulReviewerTotalHelpful = totalHelpful
-                mostHelpfulReviewerTotalReviewed = totalReviewed
 
     if mostHelpfulReviewer:
         print(
-            f"\nMost Helpful Reviewer: {mostHelpfulReviewer}, Average Helpfulness: {int(highestAvgHelpfulness * 100)}%, Review/Helpfulness: {mostHelpfulReviewerTotalHelpful}/{mostHelpfulReviewerTotalReviewed}")
+            f"The most helpful reviewer was {mostHelpfulReviewer} with an average rating of {int(highestAvgHelpfulness * 100)}% helpful!\n")
     else:
         print("No reviewer with sufficient reviews.")
 
 
 def welcome() -> None:
-    print("Welcome to the project 1 : Book Mobile")
+    print("Welcome to the Book Mobile! We have many books to offer. Please choose from the following menu of options!")
 
 
 def goodBye() -> None:
-    print("Thank you, goodbye!")
+    print("Thank you for visiting the Book Mobile!")
 
 
 def menu() -> int:
@@ -224,14 +242,13 @@ def menu() -> int:
     Returns:
     - int: The number of the option the user chose
     """
-    print("\nMenu:")
-    print("1. Load the book file")
-    print("2. Load the book review file")
-    print("3. Output books by literary category")
-    print("4. Output a book’s details")
-    print("5. Output the average author ratings")
-    print("6. Output the most helpful reviewer")
+    print("1. Load Book File")
+    print("2. Load Review File")
+    print("3. Books by Category")
+    print("4. Book Details")
+    print("5. Author Average Ratings")
+    print("6. Most Helpful Reviewer")
     print("7. Quit")
-    choice = input("Please choose an option (1-7): ")
+    choice = input("Please enter a choice (1-7): ")
 
     return int(choice)
