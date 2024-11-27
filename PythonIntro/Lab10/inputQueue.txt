@@ -1,0 +1,25 @@
+peek
+enqueue Emmeric
+enqueue Borus
+enqueue Nyer
+dequeue
+print
+enqueue Bria
+enqueue Jeralia
+enqueue Rye
+enqueue Ari
+dequeue
+print
+dequeue
+dequeue
+dequeue
+peek
+enqueue Tarinne
+clear
+dequeue
+enqueue Iowyn
+print
+enqueue Hadena
+dequeue
+dequeue
+dequeue
