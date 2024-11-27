@@ -1,0 +1,22 @@
+peek
+push 37
+push 84
+push 24
+pop
+print
+push 5
+push 46
+push 38
+push 98
+pop
+print
+pop
+peek
+push 66
+clear
+push 13
+print
+push 89
+pop
+pop
+pop
