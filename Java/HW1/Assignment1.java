@@ -1,11 +1,10 @@
 /**
- * Author: Hogan Lin
- * Date: February 6, 2025
- * Github: https://github.com/hogan-tech/SIT/tree/main/Java
- * Course: CS 501-A
- * Description: Implementation of various utility functions, including numerical
- * operations, string manipulations, and validation checks.
- */
+* @author: Hogan Lin
+* @class: CS501 Intro to Java
+* @description: Implementation of various utility functions, including numerical
+* operations, string manipulations, and validation checks.
+* @date: February 6, 2025
+**/
 
 public class Assignment1 {
 
