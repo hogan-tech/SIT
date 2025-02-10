@@ -101,6 +101,8 @@ public class Assignment1 {
      * @param romanNumeral The Roman numeral string
      * @return The integer equivalent
      */
+    // Geeksforgeeks - Hashmap in Java, I use the same concept but use Map<Char, Int>
+    // https://www.geeksforgeeks.org/convert-a-roman-number-to-decimal-using-hashmap-in-java/
     public int romanNumeralToInt(String romanNumeral) {
         java.util.Map<Character, Integer> map = java.util.Map.of(
                 'I',
@@ -135,6 +137,8 @@ public class Assignment1 {
      * @param phoneNumber The phone number string
      * @return True if it matches the expected formats, false otherwise
      */
+    // StackOverflow - Java regex pattern matching
+    // https://stackoverflow.com/questions/40144427/java-regex-pattern-matching?rq=3
     public boolean validPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("\\(\\d{3}\\)\\d{3}-\\d{4}|\\d{3}-\\d{3}-\\d{4}|\\d{10}");
     }
