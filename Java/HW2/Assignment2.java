@@ -296,25 +296,54 @@ public class Assignment2 {
             System.out.println(Arrays.toString(row));
         }
 
-        // Test containsSubarray
-        int[][][] array3D = {
+
+        // Base on Slack Homework channel, use the same test case to check logic
+        // Test containsSubarray (Example 1 - Should return true)
+        int[][][] array3D_1 = {
                 {
-                        { 1, 2, 3 },
-                        { 4, 5, 6 },
-                        { 7, 8, 9 }
+                        { 1, 2, 3, 4 },
+                        { 2, 4, 6, 8 },
+                        { 3, 6, 9, 12 }
                 },
                 {
-                        { 10, 11, 12 },
-                        { 13, 14, 15 },
-                        { 16, 17, 18 }
+                        { 2, 4, 6, 8 },
+                        { 4, 8, 12, 16 },
+                        { 6, 12, 18, 24 }
                 }
         };
 
-        int[][] subarray = {
-                { 4, 5 },
-                { 7, 8 }
+        int[][] subarray_1 = {
+                { 4, 6, 8 },
+                { 8, 12, 16 }
         };
 
-        System.out.println("Contains subarray: " + containsSubarray(array3D, subarray));
+        System.out.println("Contains subarray (expected true): " + containsSubarray(array3D_1, subarray_1));
+
+        // Test containsSubarray (Example 2 - Should return false)
+        int[][][] array3D_2 = {
+                {
+                        { 2, 4, 6 },
+                        { 4, 8, 12 },
+                        { 6, 12, 18 }
+                },
+                {
+                        { 3, 6, 9 },
+                        { 6, 12, 18 },
+                        { 9, 18, 27 }
+                },
+                {
+                        { 4, 8, 12 },
+                        { 8, 16, 24 },
+                        { 12, 24, 36 }
+                }
+        };
+
+        int[][] subarray_2 = {
+                { 12, 18 },
+                { 16, 24 }
+        };
+
+        System.out.println("Contains subarray (expected false): " + containsSubarray(array3D_2, subarray_2));
+
     }
 }
