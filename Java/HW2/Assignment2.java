@@ -134,6 +134,119 @@ public class Assignment2 {
         return rotated;
     }
 
+    /**
+     * Return a 1D array path that traverses the matrix in a clockwise spiral
+     * starting from the top left.
+     * Ex:
+     * { {1, 2, 3},
+     * {4, 5, 6},
+     * {7, 8, 9}
+     * } -> {1, 2, 3, 6, 9, 8, 7, 4, 5}
+     * 
+     * @param matrix The input matrix
+     * @return The spiral path
+     */
+
+    public static int[] spiralPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0)
+            return new int[0];
+
+        int rows = matrix.length, cols = matrix[0].length;
+        int[] result = new int[rows * cols];
+        int index = 0;
+
+        int top = 0, bottom = rows - 1, left = 0, right = cols - 1;
+
+        while (top <= bottom && left <= right) {
+            // Traverse from left to right
+            for (int i = left; i <= right; i++) {
+                result[index++] = matrix[top][i];
+            }
+            top++;
+
+            // Traverse from top to bottom
+            for (int i = top; i <= bottom; i++) {
+                result[index++] = matrix[i][right];
+            }
+            right--;
+
+            // Traverse from right to left (if not already traversed)
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    result[index++] = matrix[bottom][i];
+                }
+                bottom--;
+            }
+
+            // Traverse from bottom to top (if not already traversed)
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    result[index++] = matrix[i][left];
+                }
+                left++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Given a 3D array, check if it contains a given 2D subarray.
+     * 
+     * @param array    The 3D array
+     * @param subarray The 2D subarray
+     * @return True if the subarray is found in any layer of the 3D array, false
+     *         otherwise
+     */
+    public static boolean containsSubarray(int[][][] array, int[][] subarray) {
+        for (int[][] layer : array) {
+            if (isSubarrayPresent(layer, subarray)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Helper function to check if a 2D subarray is present in a 2D array.
+     * 
+     * @param matrix   The larger 2D matrix
+     * @param subarray The 2D subarray to search for
+     * @return True if subarray is found, false otherwise
+     */
+    private static boolean isSubarrayPresent(int[][] matrix, int[][] subarray) {
+        int m = matrix.length, n = matrix[0].length;
+        int sm = subarray.length, sn = subarray[0].length;
+
+        for (int i = 0; i <= m - sm; i++) {
+            for (int j = 0; j <= n - sn; j++) {
+                if (matchesSubarray(matrix, subarray, i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Helper function to check if subarray matches starting at (row, col)
+     * 
+     * @param matrix   The larger matrix
+     * @param subarray The subarray to match
+     * @param row      Starting row index
+     * @param col      Starting column index
+     * @return True if subarray matches, false otherwise
+     */
+    private static boolean matchesSubarray(int[][] matrix, int[][] subarray, int row, int col) {
+        for (int i = 0; i < subarray.length; i++) {
+            for (int j = 0; j < subarray[i].length; j++) {
+                if (matrix[row + i][col + j] != subarray[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         // Test quadraticEquation
         System.out.println("Quadratic roots: " + Arrays.toString(quadraticEquation(1, -3, 2)));
@@ -157,5 +270,51 @@ public class Assignment2 {
 
         // Test findSecondLargest
         System.out.println("Second largest: " + findSecondLargest(new int[] { 10, 20, 4, 45, 99 }));
+
+        // Test spiralPath
+        int[][] spiralMatrix = {
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 }
+        };
+        System.out.println("Spiral Path: " + Arrays.toString(spiralPath(spiralMatrix)));
+        // Test transposeMatrix
+        int[][] matrix = {
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 }
+        };
+        System.out.println("Original matrix: ");
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        transposeMatrix(matrix);
+
+        System.out.println("Transposed matrix: ");
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        // Test containsSubarray
+        int[][][] array3D = {
+                {
+                        { 1, 2, 3 },
+                        { 4, 5, 6 },
+                        { 7, 8, 9 }
+                },
+                {
+                        { 10, 11, 12 },
+                        { 13, 14, 15 },
+                        { 16, 17, 18 }
+                }
+        };
+
+        int[][] subarray = {
+                { 4, 5 },
+                { 7, 8 }
+        };
+
+        System.out.println("Contains subarray: " + containsSubarray(array3D, subarray));
     }
 }
