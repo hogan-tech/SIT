@@ -319,23 +319,40 @@ public class Assignment2 {
     public static void main(String[] args) {
         // Test quadraticEquation
         System.out.println("Quadratic roots: " + Arrays.toString(quadraticEquation(1, -3, 2)));
+        System.out.println("Quadratic roots (b=0, c=0): " + Arrays.toString(quadraticEquation(1, 0, 0)));
 
         // Test arrayOperations
         System.out.println("Array operations: " + Arrays.toString(arrayOperations(new double[] { 1, 2, 3, 4, 5 })));
+        System.out.println("Array operations (empty array): " + Arrays.toString(arrayOperations(new double[] {})));
+        System.out.println(
+                "Array operations (all same values): " + Arrays.toString(arrayOperations(new double[] { 5, 5, 5, 5 })));
+        System.out.println("Array operations (negative values): "
+                + Arrays.toString(arrayOperations(new double[] { -5, -10, -15, -20 })));
+        System.out.println("Array operations (large numbers): "
+                + Arrays.toString(arrayOperations(new double[] { 1e6, 2e6, 3e6 })));
 
         // Test reverseArray
-        int[] arr = { 1, 2, 3, 4, 5 };
-        reverseArray(arr);
-        System.out.println("Reversed array: " + Arrays.toString(arr));
+        int[] reverseArr0 = { 1, 2, 3, 4, 5 };
+        reverseArray(reverseArr0);
+        System.out.println("Reversed array: " + Arrays.toString(reverseArr0));
+        int[] reverseArr1 = {};
+        reverseArray(reverseArr1);
+        System.out.println("Reverse (empty array): " + Arrays.toString(reverseArr1));
 
         // Test removeDuplicates
         System.out
                 .println("Remove duplicates: " + Arrays.toString(removeDuplicates(new int[] { 1, 2, 2, 3, 4, 4, 5 })));
 
         // Test moveZeros
-        int[] zerosArr = { 0, 1, 0, 3, 12 };
-        moveZeros(zerosArr);
-        System.out.println("Move zeros: " + Arrays.toString(zerosArr));
+        int[] zerosArr0 = { 0, 1, 0, 3, 12 };
+        moveZeros(zerosArr0);
+        System.out.println("Move zeros: " + Arrays.toString(zerosArr0));
+        int[] zerosArr1 = { 0, 0, 0, 0 };
+        moveZeros(zerosArr1);
+        System.out.println("Move zeros (all zeros): " + Arrays.toString(zerosArr1));
+        int[] zerosArr2 = { 0 };
+        moveZeros(zerosArr2);
+        System.out.println("Move zeros (single zero): " + Arrays.toString(zerosArr2));
 
         // Test findSecondLargest
         System.out.println("Second largest: " + findSecondLargest(new int[] { 10, 20, 4, 45, 99 }));
@@ -347,23 +364,68 @@ public class Assignment2 {
                 { 7, 8, 9 }
         };
         System.out.println("Spiral Path: " + Arrays.toString(spiralPath(spiralMatrix)));
+
         // Test transposeMatrix
-        int[][] matrix = {
+        // 1. Edge Case: Empty matrix
+        int[][] matrix0X0 = {};
+        System.out.println("Transpose (empty matrix): ");
+        transposeMatrix(matrix0X0);
+        for (int[] row : matrix0X0) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        // 2. Edge Case: 1x1 Matrix
+        int[][] matrix1X1 = { { 5 } };
+        System.out.println("Transpose (1x1 matrix): ");
+        transposeMatrix(matrix1X1);
+        for (int[] row : matrix1X1) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        // 3. Smallest square matrix (2x2)
+        int[][] matrix2X2 = {
+                { 1, 2 },
+                { 3, 4 }
+        };
+        System.out.println("Original 2x2 matrix: ");
+        for (int[] row : matrix2X2) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        transposeMatrix(matrix2X2);
+
+        System.out.println("Transposed 2x2 matrix: ");
+        for (int[] row : matrix2X2) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        // 4. Regular matrix (3x3)
+        int[][] matrix3X3 = {
                 { 1, 2, 3 },
                 { 4, 5, 6 },
                 { 7, 8, 9 }
         };
         System.out.println("Original matrix: ");
-        for (int[] row : matrix) {
+        for (int[] row : matrix3X3) {
             System.out.println(Arrays.toString(row));
         }
 
-        transposeMatrix(matrix);
+        transposeMatrix(matrix3X3);
 
         System.out.println("Transposed matrix: ");
-        for (int[] row : matrix) {
+        for (int[] row : matrix3X3) {
             System.out.println(Arrays.toString(row));
         }
+
+        // Test rotateMatrix
+        int[][] matrix1x1 = { { 5 } };
+        System.out.println("Rotate 90 (1x1 matrix): " + Arrays.deepToString(rotate90Clockwise(matrix1x1)));
+
+        int[][] matrix2x2 = { { 1, 2 }, { 3, 4 } };
+        System.out.println("Rotate 90 (2x2 matrix): " + Arrays.deepToString(rotate90Clockwise(matrix2x2)));
+
+        int[][] matrixNegative = { { -1, -2, -3 }, { -4, -5, -6 }, { -7, -8, -9 } };
+        System.out.println("Rotate 90 (negative numbers): " + Arrays.deepToString(rotate90Clockwise(matrixNegative)));
 
         // Base on Slack Homework channel, use the same test case to check logic
         // Test containsSubarray (Example 1 - Should return true)
