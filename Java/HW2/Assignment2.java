@@ -260,6 +260,11 @@ public class Assignment2 {
      *         otherwise
      */
     public static boolean containsSubarray(int[][][] array, int[][] subarray) {
+        // Edge case: If subarray is empty, return false immediately
+        if (subarray.length == 0 || subarray[0].length == 0) {
+            return false;
+        }
+
         // Iterate through each 2D layer in the 3D array.
         for (int[][] layer : array) {
             // Check if the subarray is present in the current 2D layer.
@@ -278,6 +283,10 @@ public class Assignment2 {
      * @return True if subarray is found, false otherwise
      */
     private static boolean isSubarrayPresent(int[][] matrix, int[][] subarray) {
+        // Edge case: If subarray is empty, return false immediately
+        if (subarray.length == 0 || subarray[0].length == 0) {
+            return false;
+        }
         int m = matrix.length, n = matrix[0].length; // Dimensions of the main matrix
         int sm = subarray.length, sn = subarray[0].length; // Dimensions of the subarray
 
@@ -474,6 +483,25 @@ public class Assignment2 {
         };
 
         System.out.println("Contains subarray (expected false): " + containsSubarray(array3D_2, subarray_2));
+
+        // Base 3D array for testing
+        int[][][] array3D_3 = {
+                {
+                        { 1, 2, 3, 4 },
+                        { 5, 6, 7, 8 },
+                        { 9, 10, 11, 12 }
+                },
+                {
+                        { 13, 14, 15, 16 },
+                        { 17, 18, 19, 20 },
+                        { 21, 22, 23, 24 }
+                }
+        };
+
+        // 1. Edge Case: `subarray` is an empty 2D array
+        int[][] subarray_3 = {};
+        System.out.println(
+                "Contains empty 2D subarray (expected false): " + containsSubarray(array3D_3, subarray_3));
 
     }
 }
