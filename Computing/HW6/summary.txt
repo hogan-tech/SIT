@@ -1,0 +1,15 @@
+Bubble Sort on Sorted list of size 10: 9 comparisons, 0 swaps
+Bubble Sort on Sorted list of size 100: 99 comparisons, 0 swaps
+Bubble Sort on Sorted list of size 500: 499 comparisons, 0 swaps
+Bubble Sort on Reversed list of size 10: 45 comparisons, 45 swaps
+Bubble Sort on Reversed list of size 100: 4950 comparisons, 4950 swaps
+Bubble Sort on Reversed list of size 500: 124750 comparisons, 124750 swaps
+Bubble Sort on Random list of size 10: 45 comparisons, 20 swaps
+Bubble Sort on Random list of size 100: 4940 comparisons, 2496 swaps
+Bubble Sort on Random list of size 500: 124344 comparisons, 64824 swaps
+Bubble Sort on Almost Sorted list of size 10: 17 comparisons, 1 swaps
+Bubble Sort on Almost Sorted list of size 100: 197 comparisons, 1 swaps
+Bubble Sort on Almost Sorted list of size 500: 997 comparisons, 1 swaps
+Bubble Sort on Few Unique list of size 10: 39 comparisons, 17 swaps
+Bubble Sort on Few Unique list of size 100: 4625 comparisons, 1835 swaps
+Bubble Sort on Few Unique list of size 500: 119497 comparisons, 49055 swaps
