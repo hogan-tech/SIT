@@ -1,0 +1,89 @@
+V 01. A. <T extends Number> means T can be Number or any subtype of Number
+V 02. 15
+V 03. _name
+V 04. constructor
+V 05. Abstract methods in abstract classes don't have a body
+V 06. Three Four
+V 07.
+HashSet uses hashing for storage, TreeSet uses a tree structure
+HashSet provides faster access but no ordering, TreeSet maintains sorted order
+HashSet allows null elements, TreeSet doesn't
+V 08.
+The average time complexity for search operations is O(log n)
+The worst-case time complexity for search operations is O(n)
+Inorder traversal of a BST yields elements in sorted order
+V 09. Both A and B
+V 10. 65, B
+V 11. finally
+V 12.  -128 to 127
+V 13. By using techniques like bucket chaining or open addressing
+V 14. this
+V 15. 4
+V 16. Byte, Integer, Character, Boolean
+V 17. 1 3 4 2 9 7 5
+V 18. private
+V 19. A strong "has-a" relationship where the contained object cannot exist independently
+V 20. 
+Downcasting requires an explicit cast
+Downcasting can cause ClassCastException
+Upcasting is casting from a subclass to a superclass
+V 21. Left rotation
+V 22. True
+V 23. Encapsulation
+V 24. Variables, Methods, Constants
+V 25. composition
+V 26. 27 81 12 07 18 24 19 55 97 15 37 48 03 91 15 73 23 60
+(X) 27. Overloading occurs at compile time; overriding occurs at runtime
+V 28. Skipping the second operand if the first determines the result
+V 29. T F T
+V 30. 7
+V 31. The default (no-argument) constructor of the superclass is called automatically
+V 32.
+Two methods with the same name but different number of parameters
+Two methods with the same name but different parameter types
+(X) (V) 33. 4
+V 34.
+[0-9]{5}
+\d{5}
+V 35. Student s = new Student();
+V 36.
+Assertions throw AssertionError when the condition is false
+Assertions are used for debugging
+V 37. IOException
+V 38.
+1
+1 2
+1 2 3
+(X) (X) 39. [1, 5, 4, 2, 8]
+(First pass: [1, 5, 4, 2, 8], second: [1, 4, 2, 5, 8])
+V 40. Random rand = new Random(42);
+V 41. An array of String objects passed as command-line arguments
+V 42.  [1, 5, 8, 4, 2]
+V 43. The compiler replaces generic types with their bound or Object if no bound
+V 44.
+Inserting a new element
+Removing the minimum element
+V 45.
+FileReader reader = new FileReader("data.txt");
+Scanner scanner = new Scanner(new File("data.txt"));
+V 46. Iterator
+V 47. 1
+V 48. Merge Sort
+V 49. TreeMap
+V 50. ?
+V 51. [1, 2, 8, 4, 5]
+V 52. StackOverflow
+V 53. 5
+V 54. A reference to the object is passed
+V 55. final int MAX = 100;
+V 56. The ability of an object to take on many forms depending on the reference type
+V 57. toString()
+V 58.
+Interface variables are implicitly public, static, and final
+Interfaces can contain default methods
+All methods in an interface are implicitly public
+V 59. 33
+V 60. less
+V 61.  O(n²)
+
+
