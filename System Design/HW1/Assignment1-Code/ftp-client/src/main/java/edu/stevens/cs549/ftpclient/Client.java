@@ -6,10 +6,14 @@
 package edu.stevens.cs549.ftpclient;
 
 import edu.stevens.cs549.ftpinterface.IServer;
+import edu.stevens.cs549.ftpinterface.IServerFactory;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -135,8 +139,9 @@ public class Client {
 			 * TODO: Get a server proxy.
 			 */
 
-			IServer server = null;
-
+			Registry registry = LocateRegistry.getRegistry(serverAddr, serverPort);
+			IServerFactory factory = (IServerFactory) registry.lookup(serverName);
+			IServer server = factory.createServer();
 
 			/*
 			 * Start CLI. Second argument should be server proxy.
@@ -313,8 +318,16 @@ public class Client {
 						/*
 						 * TODO: Complete this thread.
 						 */
+						InputStream in = socket.getInputStream();
+						byte[] buffer = new byte[4096];
+						int bytesRead;
+						while ((bytesRead = in.read(buffer)) != -1) {
+							out.write(buffer, 0, bytesRead);
+						}
+						out.flush();
 					} finally {
 						socket.close();
+						out.close();
 					}
 				} catch (IOException e) {
 					msg("Exception: " + e);
@@ -347,9 +360,17 @@ public class Client {
 						/*
 						 * TODO: Complete this thread.
 						 */
+						OutputStream socketOut = socket.getOutputStream();
+						byte[] buffer = new byte[4096];
+						int bytesRead;
+						while ((bytesRead = in.read(buffer)) != -1) {
+							socketOut.write(buffer, 0, bytesRead);
+						}
+						socketOut.flush();
 						
 					} finally {
 						socket.close();
+						in.close();
 					}
 				} catch (IOException e) {
 					msg("Exception: " + e);
@@ -376,7 +397,12 @@ public class Client {
 							/*
 							 * TODO: download the file through the socket connection
 							 */
-
+							InputStream in = socket.getInputStream();
+							byte[] buffer = new byte[4096];
+							int bytesRead;
+							while ((bytesRead = in.read(buffer)) != -1) {
+								out.write(buffer, 0, bytesRead);
+							}
 
 							/*
 							 * End TODO
@@ -414,11 +440,28 @@ public class Client {
 						/*
 						 * TODO
 						 */
-
+						svr.put(inputs[1]);
+						InputStream in = new BufferedInputStream(new FileInputStream(inputs[1]));
+						Socket socket = new Socket(serverAddress, serverSocket.getPort());
+						try {
+							OutputStream socketOut = socket.getOutputStream();
+							byte[] buffer = new byte[4096];
+							int bytesRead;
+							while ((bytesRead = in.read(buffer)) != -1) {
+								socketOut.write(buffer, 0, bytesRead);
+							}
+							socketOut.flush();
+						} finally {
+							in.close();
+							socket.close();
+						}
 					} else if (mode == Mode.ACTIVE) {
 						/*
 						 * TODO
 						 */
+						InputStream in = new BufferedInputStream(new FileInputStream(inputs[1]));
+						new Thread(new PutThread(dataChan, in)).start();
+						svr.put(inputs[1]);
 					} else {
 						msgln("GET: No mode set--use port or pasv command.");
 					}

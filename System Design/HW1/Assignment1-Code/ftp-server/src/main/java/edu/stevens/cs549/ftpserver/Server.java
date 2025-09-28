@@ -2,9 +2,11 @@ package edu.stevens.cs549.ftpserver;
 
 import edu.stevens.cs549.ftpinterface.IServer;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -134,8 +136,13 @@ public class Server extends UnicastRemoteObject implements IServer {
 					/*
 					 * TODO: Complete this thread (remember to flush output!).
 					 */
-
-					
+					OutputStream socketOut = socket.getOutputStream();
+					byte[] buffer = new byte[4096];
+					int bytesRead;
+					while ((bytesRead = in.read(buffer)) != -1) {
+						socketOut.write(buffer, 0, bytesRead);
+					}
+					socketOut.flush();
 					/*
 					 * End TODO
 					 */
@@ -166,8 +173,16 @@ public class Server extends UnicastRemoteObject implements IServer {
 					/*
 					 * TODO: Complete this thread.
 					 */
+					InputStream socketIn = socket.getInputStream();
+					byte[] buffer = new byte[4096];
+					int bytesRead;
+					while ((bytesRead = socketIn.read(buffer)) != -1) {
+						out.write(buffer, 0, bytesRead);
+					}
+					out.flush();
 				} finally {
 					socket.close();
+					out.close();
 				}
 			} catch (IOException e) {
 				throw new IllegalStateException("Exception while transferring data from client in passive mode.", e);
@@ -189,7 +204,13 @@ public class Server extends UnicastRemoteObject implements IServer {
 				/*
 				 * TODO: connect to client socket to transfer file.
 				 */
-
+				OutputStream socketOut = socket.getOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+				while ((bytesRead = in.read(buffer)) != -1) {
+					socketOut.write(buffer, 0, bytesRead);
+				}
+				socketOut.flush();
 				/*
 				 * End TODO.
 				 */
@@ -210,10 +231,28 @@ public class Server extends UnicastRemoteObject implements IServer {
 			/*
 			 * TODO
 			 */
+			OutputStream out = new java.io.BufferedOutputStream(new FileOutputStream(path() + file));
+			log.info("Server connecting to client at address " + clientSocket.getHostName() + " and port "+clientSocket.getPort());
+			Socket socket = new Socket(clientSocket.getHostName(), clientSocket.getPort());
+			try {
+				InputStream socketIn = socket.getInputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+				while ((bytesRead = socketIn.read(buffer)) != -1) {
+					out.write(buffer, 0, bytesRead);
+				}
+				out.flush();
+			} finally {
+				out.close();
+				socket.close();
+			}
 		} else if (mode == Mode.PASSIVE) {
 			/*
 			 * TODO
 			 */
+			OutputStream out = new BufferedOutputStream(new FileOutputStream(path() + file));
+			new Thread(new PutThread(dataChan, out)).start();
+
 		}
 	}
 
