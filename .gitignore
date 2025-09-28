@@ -1,2 +1,4 @@
 NoteBook/
 .venv/
+*.zip
+*.mp4
